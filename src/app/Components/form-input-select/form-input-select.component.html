@@ -1,0 +1,11 @@
+<div class="form-group">
+  <label for="{{ formInput.idInput }}">{{ formInput.rotuloInput }}: </label>
+  <select
+    class="form-control {{ texto_validacao }}"
+    (input)="textoAltera($event)"
+    id="{{ formInput.idInput }}"
+  >
+    <option>Selecione o {{ formInput.rotuloInput }}</option>
+    <option *ngFor="let array of arrays">{{ array }}</option>
+  </select>
+</div>

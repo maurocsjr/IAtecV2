@@ -1,0 +1,36 @@
+<h2>{{tableData.nomeTabela}}</h2>
+<br>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th *ngFor="let coluna of tableData.colunas" scope="col">{{ coluna }}</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let linha of tableData.linhas">
+      <td *ngFor="let li of linha">{{ li }}</td>
+      <td>
+        <button
+          class="btn btn-info botaoPequeno"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Editar"
+          (click)="editarItem(linha[0])"
+        >
+          <svg-icon key="pencil" fontSize="10px"></svg-icon>
+        </button>
+        <button
+          class="btn btn-danger botaoPequeno"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Excluir"
+          (click)="excluirItem(linha[0])"
+        >
+          <svg-icon key="ban" fontSize="10px"></svg-icon>
+        </button>
+      </td>
+    </tr>
+    <tr></tr>
+  </tbody>
+</table>
