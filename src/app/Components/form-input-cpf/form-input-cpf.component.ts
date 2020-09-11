@@ -4,7 +4,7 @@ import { FormInput } from '../../Shared/FormInput';
 @Component({
   selector: 'app-form-input-cpf',
   templateUrl: './form-input-cpf.component.html',
-  styleUrls: ['./form-input-cpf.component.css'],
+  styleUrls: ['./form-input-cpf.component.css']
 })
 export class FormInputCpfComponent implements OnInit {
   public campo_valido: string = 'is-valid';
@@ -21,6 +21,13 @@ export class FormInputCpfComponent implements OnInit {
   ngOnInit(): void {
     if (this.formInput.obrigatorio) {
       this.texto_validacao = this.campo_invalido;
+    }
+    this.adicionarValor();
+  }
+
+  public adicionarValor() {
+    if (this.formInput.value != '') {
+      this.texto = this.formInput.value;
     }
   }
 
@@ -39,15 +46,10 @@ export class FormInputCpfComponent implements OnInit {
   public validarcpf() {
     let Soma;
     let Resto;
-    let cpf2 = this.texto.replace(".", "").replace("-", "");
+    let cpf2 = this.texto.replace('.', '').replace('-', '');
     Soma = 0;
 
-    if (
-      cpf2 == '00000000000' ||
-      cpf2 == '' ||
-      cpf2.length < 11
-    )
-      return false;
+    if (cpf2 == '00000000000' || cpf2 == '' || cpf2.length < 11) return false;
 
     for (var i = 1; i <= 9; i++)
       Soma = Soma + parseInt(cpf2.substring(i - 1, i)) * (11 - i);

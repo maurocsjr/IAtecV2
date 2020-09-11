@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-tabela-completa',
   templateUrl: './tabela-completa.component.html',
-  styleUrls: ['./tabela-completa.component.css'],
+  styleUrls: ['./tabela-completa.component.css']
 })
 export class TabelaCompletaComponent implements OnInit {
   @Input() tableData: Table;
@@ -19,7 +19,17 @@ export class TabelaCompletaComponent implements OnInit {
   }
 
   public excluirItem(id: string): boolean {
-    
     return true;
+  }
+
+  public formatarData(data: string): string {
+    return data.substr(0, 10);
+  }
+
+  public formataCPF(cpf: string): string {
+    return cpf.replace(
+      /^(\d{3})\D*(\d{3})\D*(\d{3})\D*(\d{2})$/g,
+      '$1.$2.$3-$4'
+    );
   }
 }

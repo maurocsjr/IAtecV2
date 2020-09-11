@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormInput } from '../../Shared/FormInput';
 import { ActivatedRoute } from '@angular/router';
+import { APIService } from 'src/app/Services/api.service';
+import { Pessoa } from 'src/app/Shared/Pessoa.module';
 
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.css'],
+  providers: [APIService]
 })
 export class FormularioComponent implements OnInit {
   public nomeInput: FormInput = new FormInput();
@@ -21,8 +24,8 @@ export class FormularioComponent implements OnInit {
   public sexos: Array<string> = ['M', 'F'];
   public cadastroId: number;
 
-  constructor(private route: ActivatedRoute) {
-    this.route.params.subscribe((res) =>
+  constructor(private route: ActivatedRoute, private api: APIService) {
+    this.route.params.subscribe(res =>
       res.id != undefined ? (this.cadastroId = res.id) : (this.cadastroId = 0)
     );
     this.nomeInput.idInput = 'nome';
@@ -77,5 +80,24 @@ export class FormularioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.cadastroId > 0) {
+      this.api
+        .getPessoaUma(this.cadastroId)
+        .catch((resposta: any) => console.log('erro carregar pessoa'))
+        .then((pessoa: Pessoa) => this.preencherDadosEditar(pessoa));
+    }
+  }
+
+  preencherDadosEditar(pessoa: Pessoa) {
+    this.nomeInput.value = 'nome';
+    this.sobreNomeInput.value = 'sobreNome';
+    this.dataNascimentoInput.value = 'data_nascimento';
+    this.cpfInput.value = 'cpf';
+    this.telWhatsInput.value = 'telWhats';
+    this.telCelularInput.value = 'telCel';
+    this.telFixoInput.value = 'telFix';
+    this.telComerInput.value = 'telComer';
+    this.emailInput.value = 'email';
+    this.sexoInput.value = 'sexo';
   }
 }

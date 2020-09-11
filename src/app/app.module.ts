@@ -17,6 +17,7 @@ import icons from '../assets/svg/svg-icons';
 import { SvgIconsModule } from '@ngneat/svg-icon';
 import { BarraLateralComponent } from './Components/barra-lateral/barra-lateral.component';
 import { SobreComponent } from './Pages/sobre/sobre.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,10 +35,15 @@ import { SobreComponent } from './Pages/sobre/sobre.component';
     BarraLateralComponent,
     SobreComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, SvgIconsModule.forRoot({
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    SvgIconsModule.forRoot({
       icons
-    })],
+    })
+  ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

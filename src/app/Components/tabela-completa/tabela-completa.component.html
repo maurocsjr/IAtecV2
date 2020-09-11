@@ -1,6 +1,6 @@
-<h2>{{tableData.nomeTabela}}</h2>
-<br>
-<table class="table table-hover">
+<h2>{{ tableData.nomeTabela }}</h2>
+<br />
+<table class="table table-sm text-center">
   <thead>
     <tr>
       <th *ngFor="let coluna of tableData.colunas" scope="col">{{ coluna }}</th>
@@ -8,29 +8,36 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let linha of tableData.linhas">
-      <td *ngFor="let li of linha">{{ li }}</td>
-      <td>
-        <button
-          class="btn btn-info botaoPequeno"
-          data-toggle="tooltip"
-          data-placement="bottom"
-          title="Editar"
-          (click)="editarItem(linha[0])"
-        >
-          <svg-icon key="pencil" fontSize="10px"></svg-icon>
-        </button>
-        <button
-          class="btn btn-danger botaoPequeno"
-          data-toggle="tooltip"
-          data-placement="bottom"
-          title="Excluir"
-          (click)="excluirItem(linha[0])"
-        >
-          <svg-icon key="ban" fontSize="10px"></svg-icon>
-        </button>
-      </td>
+    <tr *ngFor="let pess of tableData.pessoas">
+      <th scope="row" hidden>{{ pess.id }}</th>
+      <td>{{ pess.nome }}</td>
+      <td>{{ pess.sobrenome }}</td>
+      <td>{{ formatarData(pess.data_nascimento) }}</td>
+      <td>{{ formataCPF(pess.cpf) }}</td>
+      <td>{{ pess.telwhats }}</td>
+      <td>{{ pess.telcel }}</td>
+      <td>{{ pess.telfixo }}</td>
+      <td>{{ pess.telcom }}</td>
+      <td>{{ pess.email }}</td>
+      <td>{{ pess.sexo }}</td>
+      <button
+        class="btn btn-info botaoPequeno"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Editar"
+        (click)="editarItem(pess.id)"
+      >
+        <svg-icon key="pencil" fontSize="10px"></svg-icon>
+      </button>
+      <button
+        class="btn btn-danger botaoPequeno"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Excluir"
+        (click)="excluirItem(pess.id)"
+      >
+        <svg-icon key="ban" fontSize="10px"></svg-icon>
+      </button>
     </tr>
-    <tr></tr>
   </tbody>
 </table>

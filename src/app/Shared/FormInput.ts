@@ -3,4 +3,5 @@ export class FormInput {
   public obrigatorio: boolean;
   public tipoInput: string;
   public idInput: string;
+  public value: string;
 }
