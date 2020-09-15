@@ -5,7 +5,7 @@
     (input)="textoAltera($event)"
     id="{{ formInput.idInput }}"
   >
-    <option>Selecione o {{ formInput.rotuloInput }}</option>
-    <option *ngFor="let array of arrays">{{ array }}</option>
+  <option>Selecione o Sexo</option>  
+  <option *ngFor="let array of arrays" [value]="array">{{ array }}</option>
   </select>
 </div>

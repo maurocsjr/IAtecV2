@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormInput } from '../../Shared/FormInput';
 
 @Component({
   selector: 'app-form-input-texto',
   templateUrl: './form-input-texto.component.html',
-  styleUrls: ['./form-input-texto.component.css'],
+  styleUrls: ['./form-input-texto.component.css']
 })
 export class FormInputTextoComponent implements OnInit {
   public campo_valido: string = 'is-valid';
@@ -12,7 +12,8 @@ export class FormInputTextoComponent implements OnInit {
 
   public texto_validacao: string;
 
-  @Output() public texto: string;
+  public texto: string;
+  @Output() valueInput = new EventEmitter<string>();
   @Input() public formInput: FormInput;
 
   constructor() {
@@ -22,6 +23,34 @@ export class FormInputTextoComponent implements OnInit {
   ngOnInit(): void {
     if (this.formInput.obrigatorio) {
       this.texto_validacao = this.campo_invalido;
+    }
+    if (this.formInput.value != null) {
+      this.adicionaTexto();
+    }
+  }
+
+  enviaAlteracao(): void {
+    this.valueInput.emit(this.texto);
+  }
+
+  adicionaTexto(): void {
+    this.texto = this.formInput.value;
+    this.textoPronto();
+  }
+
+  ngDoCheck(): void {
+    if (this.formInput.value != null) {
+      this.adicionaTexto();
+    }
+  }
+
+  textoPronto(): void {
+    if (this.formInput.obrigatorio) {
+      if (this.texto.length > 1) {
+        this.texto_validacao = this.campo_valido;
+      } else {
+        this.texto_validacao = this.campo_invalido;
+      }
     }
   }
 
@@ -34,5 +63,6 @@ export class FormInputTextoComponent implements OnInit {
         this.texto_validacao = this.campo_invalido;
       }
     }
+    this.enviaAlteracao();
   }
 }

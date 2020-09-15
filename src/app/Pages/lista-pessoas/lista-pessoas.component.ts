@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ValueProvider } from '@angular/core';
 import { APIService } from 'src/app/Services/api.service';
 import { Pessoa } from 'src/app/Shared/Pessoa.module';
 import { Table } from 'src/app/Shared/Table';
@@ -14,17 +14,45 @@ export class ListaPessoasComponent implements OnInit {
 
   constructor(private api: APIService) {
     this.dadosTeste = new Table();
-    api
+    this.carregarPessoas();
+  }
+
+  ngOnInit(): void {}
+
+  carregarPessoas() {
+    this.api
       .getPessoa()
       .then((pessoas: Pessoa[]) => this.preencherTabela(pessoas))
       .catch((reason: any) => console.log('erro ' + reason));
     this.dadosTeste.nomeTabela = 'Lista de Pessoas';
   }
 
-  ngOnInit(): void {}
-
-  preencherTabela(pessoas: Pessoa[]) {
-    this.dadosTeste.colunas = ["Nome","Sobrenome","Data de Nasc.","CPF","Tel. Whats","Tel. Cel.","Tel. Fixo","Tel Com.","E-mail","Sexo"];
+  preencherTabela(pessoas: Pessoa[]): void {
+    this.dadosTeste.colunas = [
+      'Nome',
+      'Sobrenome',
+      'Data de Nasc.',
+      'CPF',
+      'Tel. Whats',
+      'Tel. Cel.',
+      'Tel. Fixo',
+      'Tel Com.',
+      'E-mail',
+      'Sexo'
+    ];
     this.dadosTeste.pessoas = pessoas;
+  }
+
+  apagarPessoa(id: number): void {
+    this.api
+      .delPessoa(id)
+      .then((resposta: Pessoa) => {
+        alert(resposta.nome + ' apagado!');
+        this.carregarPessoas();
+      })
+      .catch((reason: any) => {
+        console.log(reason);
+        this.carregarPessoas();
+      });
   }
 }

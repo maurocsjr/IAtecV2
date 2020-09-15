@@ -1,27 +1,53 @@
-<div class="container-fluid d-flex justify-content-center">
-  <div class="card">
-    <div class="card-body">
-      <h2 class="text-center">Cadastro</h2>
-      <form>
-        <app-form-input-texto [formInput]="nomeInput"></app-form-input-texto>
+<div class="container-fluid" style="padding-bottom: 10px;">
+  <form>
+    <h2 class="text-center">Cadastro</h2>
+    <div class="row">
+      <div class="col">
+        <app-form-input-texto
+          [formInput]="nomeInput"
+          (valueInput)="setNome($event)"
+        ></app-form-input-texto>
         <app-form-input-texto
           [formInput]="sobreNomeInput"
+          (valueInput)="setSobrenome($event)"
         ></app-form-input-texto>
         <app-form-input-data
           [formInput]="dataNascimentoInput"
+          (valueInput)="setDataNascimento($event)"
         ></app-form-input-data>
-        <app-form-input-cpf [formInput]="cpfInput"></app-form-input-cpf>
-        <app-form-input-tel [formInput]="telWhatsInput"></app-form-input-tel>
-        <app-form-input-tel [formInput]="telCelularInput"></app-form-input-tel>
-        <app-form-input-tel [formInput]="telFixoInput"></app-form-input-tel>
-        <app-form-input-tel [formInput]="telComerInput"></app-form-input-tel>
-        <app-form-input-texto [formInput]="emailInput"></app-form-input-texto>
+        <app-form-input-cpf
+          [formInput]="cpfInput"
+          (valueInput)="setCpf($event)"
+        ></app-form-input-cpf>
+        <app-form-input-tel
+          [formInput]="telWhatsInput"
+          (valueInput)="setTelWhats($event)"
+        ></app-form-input-tel>
+      </div>
+      <div class="col">
+        <app-form-input-tel
+          [formInput]="telCelularInput"
+          (valueInput)="setTelCel($event)"
+        ></app-form-input-tel>
+        <app-form-input-tel
+          [formInput]="telFixoInput"
+          (valueInput)="setTelFixo($event)"
+        ></app-form-input-tel>
+        <app-form-input-tel
+          [formInput]="telComerInput"
+          (valueInput)="setTelComer($event)"
+        ></app-form-input-tel>
+        <app-form-input-texto
+          [formInput]="emailInput"
+          (valueInput)="setEmail($event)"
+        ></app-form-input-texto>
         <app-form-input-select
           [formInput]="sexoInput"
           [arrays]="sexos"
+          (valueInput)="setSexo($event)"
         ></app-form-input-select>
-        <button type="button" class="btn btn-primary">Salvar</button>
-      </form>
+      </div>
     </div>
-  </div>
+    <button type="button" class="btn btn-primary" (click)="salvar()">Salvar</button>
+  </form>
 </div>

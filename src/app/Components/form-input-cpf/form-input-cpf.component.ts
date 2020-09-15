@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FormInput } from '../../Shared/FormInput';
 
 @Component({
@@ -12,7 +12,8 @@ export class FormInputCpfComponent implements OnInit {
 
   public texto_validacao: string;
 
-  @Output() public texto: string;
+  public texto: string;
+  @Output() valueInput = new EventEmitter<string>();
   @Input() public formInput: FormInput;
   constructor() {
     this.texto = '';
@@ -22,7 +23,19 @@ export class FormInputCpfComponent implements OnInit {
     if (this.formInput.obrigatorio) {
       this.texto_validacao = this.campo_invalido;
     }
-    this.adicionarValor();
+    if (this.formInput.value != null) {
+      this.adicionaTexto();
+    }
+  }
+
+  ngDoCheck(): void {
+    if (this.formInput.value != null) {
+      this.adicionaTexto();
+    }
+  }
+
+  enviaAlteracao(): void {
+    this.valueInput.emit(this.texto);
   }
 
   public adicionarValor() {
@@ -40,7 +53,26 @@ export class FormInputCpfComponent implements OnInit {
         this.texto_validacao = this.campo_invalido;
       }
     }
+    this.enviaAlteracao();
     this.formataCPF();
+  }
+
+  adicionaTexto(): void {
+    this.texto = this.formInput.value;
+    this.textoPronto();
+  }
+
+  textoPronto(): void {
+    if (this.formInput.obrigatorio) {
+      if (this.formInput.obrigatorio) {
+        if (this.validarcpf()) {
+          this.texto_validacao = this.campo_valido;
+        } else {
+          this.texto_validacao = this.campo_invalido;
+        }
+      }
+      this.formataCPF();
+    }
   }
 
   public validarcpf() {

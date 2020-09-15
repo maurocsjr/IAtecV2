@@ -2,8 +2,9 @@
   <label for="{{ formInput.idInput }}">{{ formInput.rotuloInput }}: </label>
   <input
     type="{{ formInput.tipoInput }}"
-    class="form-control {{texto_validacao}}"
+    class="form-control {{ texto_validacao }}"
     id="{{ formInput.idInput }}"
     (input)="textoAltera($event)"
+    value="{{ texto }}"
   />
 </div>

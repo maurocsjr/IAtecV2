@@ -1,19 +1,21 @@
-import { Component, OnInit, Output, Input } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { env } from 'process';
 import { FormInput } from '../../Shared/FormInput';
 
 @Component({
   selector: 'app-form-input-data',
   templateUrl: './form-input-data.component.html',
-  styleUrls: ['./form-input-data.component.css'],
+  styleUrls: ['./form-input-data.component.css']
 })
 export class FormInputDataComponent implements OnInit {
   public campo_valido: string = 'is-valid';
   public campo_invalido: string = 'is-invalid';
-  public dataInicio: string ;
+  public dataInicio: string;
 
   public texto_validacao: string;
 
-  @Output() public texto: string;
+  public texto: string;
+  @Output() valueInput = new EventEmitter<string>();
   @Input() public formInput: FormInput;
 
   constructor() {
@@ -25,6 +27,31 @@ export class FormInputDataComponent implements OnInit {
     if (this.formInput.obrigatorio) {
       this.texto_validacao = this.campo_invalido;
     }
+    if (this.formInput.value != null) {
+      this.adicionaTexto();
+    }
+  }
+
+  ngDoCheck(): void {
+    if (this.formInput.value != null) {
+      this.adicionaTexto();
+    }
+  }
+
+  enviaAlteracao(): void {
+    this.valueInput.emit(this.texto);
+  }
+
+  adicionaTexto(): void {
+    this.texto = this.formInput.value.substr(0, 10);
+    this.dataInicio = this.texto;
+    this.textoPronto();
+  }
+
+  textoPronto(): void {
+    if (this.formInput.obrigatorio) {
+      this.texto_validacao = this.campo_valido;
+    }
   }
 
   colocarDataInicio() {
@@ -32,7 +59,11 @@ export class FormInputDataComponent implements OnInit {
     let dia: number = data.getDate();
     let mes: number = data.getMonth() + 1;
     this.dataInicio =
-      data.getFullYear().toString() + '-' + (mes<10?("0" + mes.toString()): mes.toString()) + '-' + (dia<10?("0" + dia.toString()): dia.toString());
+      data.getFullYear().toString() +
+      '-' +
+      (mes < 10 ? '0' + mes.toString() : mes.toString()) +
+      '-' +
+      (dia < 10 ? '0' + dia.toString() : dia.toString());
   }
 
   public textoAltera(texto: Event) {
@@ -44,6 +75,7 @@ export class FormInputDataComponent implements OnInit {
         this.texto_validacao = this.campo_invalido;
       }
     }
+    this.enviaAlteracao();
   }
 
   public validaData(): boolean {
