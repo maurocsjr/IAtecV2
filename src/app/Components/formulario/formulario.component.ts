@@ -3,6 +3,7 @@ import { FormInput } from '../../Shared/FormInput';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APIService } from 'src/app/Services/api.service';
 import { Pessoa } from 'src/app/Shared/Pessoa.module';
+import { Telefone } from 'src/app/Shared/Telefone.module';
 
 @Component({
   selector: 'app-formulario',
@@ -15,13 +16,10 @@ export class FormularioComponent implements OnInit {
   public sobreNomeInput: FormInput = new FormInput();
   public cpfInput: FormInput = new FormInput();
   public dataNascimentoInput: FormInput = new FormInput();
-  public telWhatsInput: FormInput = new FormInput();
-  public telCelularInput: FormInput = new FormInput();
-  public telFixoInput: FormInput = new FormInput();
-  public telComerInput: FormInput = new FormInput();
   public emailInput: FormInput = new FormInput();
   public sexoInput: FormInput = new FormInput();
   public sexos: Array<string> = ['M', 'F'];
+  public telefones: Array<Telefone>;
   public cadastroId: number;
   public atualizar: boolean = false;
 
@@ -43,7 +41,7 @@ export class FormularioComponent implements OnInit {
     this.sobreNomeInput.rotuloInput = 'Sobrenome';
     this.sobreNomeInput.tipoInput = 'text';
 
-    this.dataNascimentoInput.idInput = 'data_nascimento';
+    this.dataNascimentoInput.idInput = 'dataNascimento';
     this.dataNascimentoInput.obrigatorio = true;
     this.dataNascimentoInput.rotuloInput = 'Data de Nascimento';
     this.dataNascimentoInput.tipoInput = 'date';
@@ -52,26 +50,6 @@ export class FormularioComponent implements OnInit {
     this.cpfInput.obrigatorio = true;
     this.cpfInput.rotuloInput = 'CPF';
     this.cpfInput.tipoInput = 'text';
-
-    this.telWhatsInput.idInput = 'telWhats';
-    this.telWhatsInput.obrigatorio = false;
-    this.telWhatsInput.rotuloInput = 'Telefone Whatsapp';
-    this.telWhatsInput.tipoInput = 'text';
-
-    this.telCelularInput.idInput = 'telCel';
-    this.telCelularInput.obrigatorio = true;
-    this.telCelularInput.rotuloInput = 'Telefone Celular';
-    this.telCelularInput.tipoInput = 'text';
-
-    this.telFixoInput.idInput = 'telFix';
-    this.telFixoInput.obrigatorio = false;
-    this.telFixoInput.rotuloInput = 'Telefone Fixo';
-    this.telFixoInput.tipoInput = 'text';
-
-    this.telComerInput.idInput = 'telComer';
-    this.telComerInput.obrigatorio = false;
-    this.telComerInput.rotuloInput = 'Telefone Comercial';
-    this.telComerInput.tipoInput = 'text';
 
     this.emailInput.idInput = 'email';
     this.emailInput.obrigatorio = true;
@@ -100,16 +78,13 @@ export class FormularioComponent implements OnInit {
     this.nomeInput.value = pessoa.nome;
     this.sobreNomeInput.value = pessoa.sobrenome;
     this.dataNascimentoInput.value =
-      pessoa.data_nascimento != null
-        ? pessoa.data_nascimento.substr(0, 10)
-        : pessoa.data_nascimento;
+      pessoa.dataNascimento != null
+        ? pessoa.dataNascimento.substr(0, 10)
+        : pessoa.dataNascimento;
     this.cpfInput.value = pessoa.cpf;
-    this.telWhatsInput.value = pessoa.telwhats;
-    this.telCelularInput.value = pessoa.telcel;
-    this.telFixoInput.value = pessoa.telfixo;
-    this.telComerInput.value = pessoa.telcom;
     this.emailInput.value = pessoa.email;
     this.sexoInput.value = pessoa.sexo;
+    this.telefones = pessoa.telefones;
     this.cadastroId = pessoa.id;
   }
 
@@ -129,22 +104,6 @@ export class FormularioComponent implements OnInit {
     this.cpfInput.value = texto;
   }
 
-  setTelWhats(texto: string) {
-    this.telWhatsInput.value = texto;
-  }
-
-  setTelFixo(texto: string) {
-    this.telFixoInput.value = texto;
-  }
-
-  setTelCel(texto: string) {
-    this.telCelularInput.value = texto;
-  }
-
-  setTelComer(texto: string) {
-    this.telComerInput.value = texto;
-  }
-
   setEmail(texto: string) {
     this.emailInput.value = texto;
   }
@@ -160,10 +119,6 @@ export class FormularioComponent implements OnInit {
     //   this.sobreNomeInput.value,
     //   this.dataNascimentoInput.value,
     //   this.cpfInput.value,
-    //   this.telWhatsInput.value,
-    //   this.telCelularInput.value,
-    //   this.telFixoInput.value,
-    //   this.telComerInput.value,
     //   this.emailInput.value,
     //   this.sexoInput.value
     // );
@@ -189,18 +144,19 @@ export class FormularioComponent implements OnInit {
     }
   }
 
+  receberTelefones(telefones: Array<Telefone>) {
+    this.telefones = telefones;
+  }
+
   fixarDadosPessoa(): Pessoa {
     let pessoa: Pessoa = new Pessoa();
     pessoa.nome = this.nomeInput.value;
     pessoa.sobrenome = this.sobreNomeInput.value;
-    pessoa.data_nascimento = this.dataNascimentoInput.value;
+    pessoa.dataNascimento = this.dataNascimentoInput.value;
     pessoa.cpf = this.cpfInput.value;
-    pessoa.telwhats = this.telWhatsInput.value;
-    pessoa.telcel = this.telCelularInput.value;
-    pessoa.telfixo = this.telFixoInput.value;
-    pessoa.telcom = this.telComerInput.value;
     pessoa.email = this.emailInput.value;
     pessoa.sexo = this.sexoInput.value;
+    pessoa.telefones = this.telefones;
     return pessoa;
   }
 
@@ -209,15 +165,11 @@ export class FormularioComponent implements OnInit {
     pessoa.id = id;
     pessoa.nome = this.nomeInput.value;
     pessoa.sobrenome = this.sobreNomeInput.value;
-    pessoa.data_nascimento = this.dataNascimentoInput.value;
+    pessoa.dataNascimento = this.dataNascimentoInput.value;
     pessoa.cpf = this.cpfInput.value;
-    pessoa.telwhats = this.telWhatsInput.value;
-    pessoa.telcel = this.telCelularInput.value;
-    pessoa.telfixo = this.telFixoInput.value;
-    pessoa.telcom = this.telComerInput.value;
     pessoa.email = this.emailInput.value;
     pessoa.sexo = this.sexoInput.value;
-    console.log(Pessoa);
+    pessoa.telefones = this.telefones;
     return pessoa;
   }
 
@@ -257,46 +209,6 @@ export class FormularioComponent implements OnInit {
         retorno = false;
       }
     }
-    if (this.telWhatsInput.obrigatorio) {
-      if (
-        this.telWhatsInput.value == undefined ||
-        this.telWhatsInput.value == null
-      ) {
-        retorno = false;
-      } else if (this.telWhatsInput.value.length < 10) {
-        retorno = false;
-      }
-    }
-    if (this.telCelularInput.obrigatorio) {
-      if (
-        this.telCelularInput.value == undefined ||
-        this.telCelularInput.value == null
-      ) {
-        retorno = false;
-      } else if (this.telCelularInput.value.length < 10) {
-        retorno = false;
-      }
-    }
-    if (this.telFixoInput.obrigatorio) {
-      if (
-        this.telFixoInput.value == undefined ||
-        this.telFixoInput.value == null
-      ) {
-        retorno = false;
-      } else if (this.telFixoInput.value.length < 10) {
-        retorno = false;
-      }
-    }
-    if (this.telComerInput.obrigatorio) {
-      if (
-        this.telComerInput.value == undefined ||
-        this.telComerInput.value == null
-      ) {
-        retorno = false;
-      } else if (this.telComerInput.value.length < 10) {
-        retorno = false;
-      }
-    }
     if (this.emailInput.obrigatorio) {
       if (this.emailInput.value == undefined || this.emailInput.value == null) {
         retorno = false;
@@ -311,6 +223,11 @@ export class FormularioComponent implements OnInit {
         retorno = false;
       }
     }
+    if (this.telefones == undefined || this.telefones == null) {
+      retorno = false;
+    } else if (this.telefones.length < 1) {
+      retorno = false;
+    }
     return retorno;
   }
 
@@ -324,38 +241,5 @@ export class FormularioComponent implements OnInit {
       this.cpfInput.value != null && this.cpfInput.value != undefined
         ? this.cpfInput.value.replace('.', '').replace('-', '')
         : this.cpfInput.value;
-    this.telWhatsInput.value =
-      this.telWhatsInput.value != null && this.telWhatsInput.value != undefined
-        ? this.telWhatsInput.value
-            .replace('(', '')
-            .replace(')', '')
-            .replace('-', '')
-            .replace(' ', '')
-        : this.telWhatsInput.value;
-    this.telCelularInput.value =
-      this.telCelularInput.value != null &&
-      this.telCelularInput.value != undefined
-        ? this.telCelularInput.value
-            .replace('(', '')
-            .replace(')', '')
-            .replace('-', '')
-            .replace(' ', '')
-        : this.telCelularInput.value;
-    this.telFixoInput.value =
-      this.telFixoInput.value != null && this.telFixoInput.value != undefined
-        ? this.telFixoInput.value
-            .replace('(', '')
-            .replace(')', '')
-            .replace('-', '')
-            .replace(' ', '')
-        : this.telFixoInput.value;
-    this.telComerInput.value =
-      this.telComerInput.value != null && this.telComerInput.value != undefined
-        ? this.telComerInput.value
-            .replace('(', '')
-            .replace(')', '')
-            .replace('-', '')
-            .replace(' ', '')
-        : this.telComerInput.value;
   }
 }

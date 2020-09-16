@@ -1,0 +1,47 @@
+<div class="row container-fluid">
+  <div class="form-group">
+    <app-form-input-tel
+      [formInput]="telefonesInput"
+      (valueInput)="setTelefone($event)"
+    ></app-form-input-tel>
+    <div class="">
+      <button
+        type="submit"
+        class="btn btn-success mx-sm-3 mb-2 botaoPersonalizado"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Adicionar telefone"
+        (click)="adicionarTelefone()"
+      >
+        <svg-icon key="circleCheck" fontSize="10px"></svg-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="form-group mx-sm-3 mb-2 text-center">
+    <table class="table table-sm table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Telefone</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let telefone of telefones; let i = index">
+          <td>{{ formataTel(telefone.telefone) }}</td>
+          <td>
+            <button
+              class="btn btn-danger botaoPequeno"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Excluir"
+              (click)="excluirItem(i)"
+            >
+              <svg-icon key="ban" fontSize="10px"></svg-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

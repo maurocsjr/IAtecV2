@@ -1,8 +1,8 @@
 <h2>{{ tableData.nomeTabela }}</h2>
 <br />
-<table class="table table-sm text-center">
+<table class="table table-sm table-hover" style="text-align: center;">
   <thead>
-    <tr>
+    <tr style="text-align: center;">
       <th *ngFor="let coluna of tableData.colunas" scope="col">{{ coluna }}</th>
       <th>Opções</th>
     </tr>
@@ -12,32 +12,57 @@
       <th scope="row" hidden>{{ pess.id }}</th>
       <td>{{ pess.nome }}</td>
       <td>{{ pess.sobrenome }}</td>
-      <td>{{ formatarData(pess.data_nascimento) }}</td>
+      <td>{{ formatarData(pess.dataNascimento) }}</td>
       <td>{{ formataCPF(pess.cpf) }}</td>
-      <td>{{ formataTel(pess.telwhats) }}</td>
-      <td>{{ formataTel(pess.telcel) }}</td>
-      <td>{{ formataTel(pess.telfixo) }}</td>
-      <td>{{ formataTel(pess.telcom) }}</td>
+      <td>
+        <button
+          class="btn btn-success botaoTelefone"
+          type="button"
+          data-toggle="collapse"
+          [attr.href]="'#collapse' + pess.id"
+          aria-expanded="false"
+          data-placement="bottom"
+          title="Mostrar telefones"
+          aria-controls="collapseTelefones"
+        >
+          <svg-icon key="incomingCall" fontSize="10px"></svg-icon>
+        </button>
+        <div
+          class="collapse"
+          id="collapse{{ pess.id }}"
+          style="padding-bottom: 2px;"
+        >
+          <div class="card card-body collapseTelefones">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let tel of pess.telefones">
+                {{ formataTel(tel.telefone) }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </td>
       <td>{{ pess.email }}</td>
       <td>{{ pess.sexo }}</td>
-      <button
-        class="btn btn-info botaoPequeno"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        title="Editar"
-        (click)="editarItem(pess.id)"
-      >
-        <svg-icon key="pencil" fontSize="10px"></svg-icon>
-      </button>
-      <button
-        class="btn btn-danger botaoPequeno"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        title="Excluir"
-        (click)="excluirItem(pess.id)"
-      >
-        <svg-icon key="ban" fontSize="10px"></svg-icon>
-      </button>
+      <td>
+        <button
+          class="btn btn-info botaoPequeno"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Editar"
+          (click)="editarItem(pess.id)"
+        >
+          <svg-icon key="pencil" fontSize="10px"></svg-icon>
+        </button>
+        <button
+          class="btn btn-danger botaoPequeno"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Excluir"
+          (click)="excluirItem(pess.id)"
+        >
+          <svg-icon key="ban" fontSize="10px"></svg-icon>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

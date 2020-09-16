@@ -11,13 +11,13 @@ export class APIService {
   //CRUD
   public getPessoa(): Promise<Pessoa[]> {
     return this.http
-      .get(`${URI.uriLocalHost}pessoas`)
+      .get(`${URI.uriLocalHost}pessoas/details`)
       .toPromise()
       .then((resposta: any) => resposta);
   }
 
   public getPessoaUma(id: number): Promise<Pessoa> {
-    let idURI = id > 0 ? '/' + id : '';
+    let idURI = id > 0 ? '/' + id + '/details': '/';
     return this.http
       .get(`${URI.uriLocalHost}pessoas${idURI}`)
       .toPromise()

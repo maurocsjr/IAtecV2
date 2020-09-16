@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Table } from 'src/app/Shared/Table';
 import { Router } from '@angular/router';
-import { OuterSubscriber } from 'rxjs/internal/OuterSubscriber';
-import { isNull } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-tabela-completa',
@@ -16,7 +14,9 @@ export class TabelaCompletaComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // console.log(this.tableData.pessoas[0].telefones[0].telefone)
+  }
 
   public editarItem(id: string): void {
     this.router.navigate(['/cadastro', id]);

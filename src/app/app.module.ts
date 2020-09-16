@@ -18,6 +18,7 @@ import { SvgIconsModule } from '@ngneat/svg-icon';
 import { BarraLateralComponent } from './Components/barra-lateral/barra-lateral.component';
 import { SobreComponent } from './Pages/sobre/sobre.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TabelaTelefonesComponent } from './Components/tabela-telefones/tabela-telefones.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     ListaPessoasComponent,
     TabelaCompletaComponent,
     BarraLateralComponent,
-    SobreComponent
+    SobreComponent,
+    TabelaTelefonesComponent
   ],
   imports: [
     BrowserModule,

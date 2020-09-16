@@ -31,7 +31,7 @@ export class FormInputSelectComponent implements OnInit {
   }
 
   ngDoCheck(): void {
-    if (this.formInput.value != null) {
+    if (this.formInput.value != null && this.formInput.value != this.texto) {
       this.selecionar(this.formInput.value);
     }
   }

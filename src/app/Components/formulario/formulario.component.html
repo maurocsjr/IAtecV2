@@ -1,53 +1,50 @@
-<div class="container-fluid" style="padding-bottom: 10px;">
-  <form>
-    <h2 class="text-center">Cadastro</h2>
-    <div class="row">
-      <div class="col">
-        <app-form-input-texto
-          [formInput]="nomeInput"
-          (valueInput)="setNome($event)"
-        ></app-form-input-texto>
-        <app-form-input-texto
-          [formInput]="sobreNomeInput"
-          (valueInput)="setSobrenome($event)"
-        ></app-form-input-texto>
-        <app-form-input-data
-          [formInput]="dataNascimentoInput"
-          (valueInput)="setDataNascimento($event)"
-        ></app-form-input-data>
-        <app-form-input-cpf
-          [formInput]="cpfInput"
-          (valueInput)="setCpf($event)"
-        ></app-form-input-cpf>
-        <app-form-input-tel
-          [formInput]="telWhatsInput"
-          (valueInput)="setTelWhats($event)"
-        ></app-form-input-tel>
-      </div>
-      <div class="col">
-        <app-form-input-tel
-          [formInput]="telCelularInput"
-          (valueInput)="setTelCel($event)"
-        ></app-form-input-tel>
-        <app-form-input-tel
-          [formInput]="telFixoInput"
-          (valueInput)="setTelFixo($event)"
-        ></app-form-input-tel>
-        <app-form-input-tel
-          [formInput]="telComerInput"
-          (valueInput)="setTelComer($event)"
-        ></app-form-input-tel>
-        <app-form-input-texto
-          [formInput]="emailInput"
-          (valueInput)="setEmail($event)"
-        ></app-form-input-texto>
-        <app-form-input-select
-          [formInput]="sexoInput"
-          [arrays]="sexos"
-          (valueInput)="setSexo($event)"
-        ></app-form-input-select>
-      </div>
+<div class="container" style="padding-bottom: 10px;">
+  <h2 class="text-center">Cadastro</h2>
+  <div class="row ">
+    <div class="col-sm">
+      <app-form-input-texto
+        [formInput]="nomeInput"
+        (valueInput)="setNome($event)"
+      ></app-form-input-texto>
+      <app-form-input-texto
+        [formInput]="sobreNomeInput"
+        (valueInput)="setSobrenome($event)"
+      ></app-form-input-texto>
+      <app-form-input-data
+        [formInput]="dataNascimentoInput"
+        (valueInput)="setDataNascimento($event)"
+      ></app-form-input-data>
     </div>
-    <button type="button" class="btn btn-primary" (click)="salvar()">Salvar</button>
-  </form>
+    <div class="col-sm">
+      <app-form-input-cpf
+        [formInput]="cpfInput"
+        (valueInput)="setCpf($event)"
+      ></app-form-input-cpf>
+      <app-form-input-texto
+        [formInput]="emailInput"
+        (valueInput)="setEmail($event)"
+      ></app-form-input-texto>
+      <app-form-input-select
+        [formInput]="sexoInput"
+        [arrays]="sexos"
+        (valueInput)="setSexo($event)"
+      ></app-form-input-select>
+    </div>
+    <div class="col-sm">
+      <app-tabela-telefones
+        (adicionarTels)="receberTelefones($event)"
+        [telefones]="telefones"
+      ></app-tabela-telefones>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row align-self-center"></div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <button type="button" class="btn btn-primary" (click)="salvar()">
+        Salvar
+      </button>
+    </div>
+  </div>
 </div>

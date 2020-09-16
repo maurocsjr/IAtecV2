@@ -33,10 +33,7 @@ export class ListaPessoasComponent implements OnInit {
       'Sobrenome',
       'Data de Nasc.',
       'CPF',
-      'Tel. Whats',
-      'Tel. Cel.',
-      'Tel. Fixo',
-      'Tel Com.',
+      'Telefones',
       'E-mail',
       'Sexo'
     ];
