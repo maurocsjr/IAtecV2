@@ -122,6 +122,7 @@ export class FormularioComponent implements OnInit {
     //   this.emailInput.value,
     //   this.sexoInput.value
     // );
+    console.log('console');
     if (this.verificarDados()) {
       if (this.cadastroId > 0) {
         this.api
@@ -178,7 +179,7 @@ export class FormularioComponent implements OnInit {
     if (this.nomeInput.obrigatorio) {
       if (this.nomeInput.value == undefined || this.nomeInput.value == null) {
         retorno = false;
-      } else if (this.nomeInput.value.length <= 3) {
+      } else if (this.nomeInput.value.length < 3) {
         retorno = false;
       }
     }
@@ -188,7 +189,7 @@ export class FormularioComponent implements OnInit {
         this.sobreNomeInput.value == null
       ) {
         retorno = false;
-      } else if (this.sobreNomeInput.value.length <= 3) {
+      } else if (this.sobreNomeInput.value.length < 3) {
         retorno = false;
       }
     }

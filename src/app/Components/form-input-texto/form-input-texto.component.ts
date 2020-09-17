@@ -46,7 +46,7 @@ export class FormInputTextoComponent implements OnInit {
 
   textoPronto(): void {
     if (this.formInput.obrigatorio) {
-      if (this.texto.length > 1) {
+      if (this.texto.length >= 3) {
         this.texto_validacao = this.campo_valido;
       } else {
         this.texto_validacao = this.campo_invalido;
@@ -57,7 +57,7 @@ export class FormInputTextoComponent implements OnInit {
   public textoAltera(texto: Event) {
     this.texto = (<HTMLInputElement>texto.target).value;
     if (this.formInput.obrigatorio) {
-      if (this.texto.length > 1) {
+      if (this.texto.length >= 3) {
         this.texto_validacao = this.campo_valido;
       } else {
         this.texto_validacao = this.campo_invalido;
